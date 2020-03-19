@@ -6,7 +6,7 @@ from flask import request, redirect, url_for, render_template, flash, session
 def show_entries():
     # loginしていないときの処理（loginしていないときloginフォームへリダイレクト）
     if not session.get("logged_in"):
-        return redirect("/login")
+        return redirect(url_for("login"))
     return render_template("entries/index.html")
 
 # /loginにリクエストがあったときのルーティング (GET,POST つかいますよーっって感じ)
@@ -20,11 +20,11 @@ def login():
             print('パスワードが異なります')
         else:
             session["logged_in"] = True #login成功後にTrueがセットされる、以後リクエストの度にlogin状態をチェックする
-            return redirect('/') #username,passwordが両方あってるとき、ページ飛んで終わり
+            return redirect(url_for('show_entries')) #username,passwordが両方あってるとき、ページ飛んで終わり
     return render_template('login.html')
     #GETメソッドの場合は（/loginにアクセスされたとき） render_template('login.html') が実行されてログインページへ
 
 @app.route('/logout')
 def logout():
     session.pop("logged_in",None) #session情報を削除
-    return redirect('/')
+    return redirect(url_for('show_entries'))
