@@ -1,5 +1,7 @@
 <!doctype html>
-<title>Flask blog</title>
-<a class = "navbar-brand" href="/">Flask blog</a>
-<br>
-nothing
+
+{% extends "layout.html" %}  <!-- layout.html の引き継ぎ -->
+
+{% block body %}
+  nothing  <!-- 上書き内容 -->
+{% endblock %}
